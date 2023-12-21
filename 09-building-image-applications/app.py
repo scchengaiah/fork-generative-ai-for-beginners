@@ -33,6 +33,12 @@ try:
     prompt = 'Generate an image of spider man who is a superhero character eating chicken pizza.'
     prompt = 'Generate an image of Iron man who is a superhero character eating an indian dish named dosa along with side dish named coconut chutney.'
 
+    prompt = f"""
+    Create an image that visually represents the collaboration between Artificial Intelligence and humans, 
+    showcasing AI as a technological ally uplifting people and contributing to the global economy. 
+    Capture the symbiotic relationship between AI and humanity, emphasizing positivity and technological advancement
+    """
+
     generation_response = client.images.generate(
         model=model,
         # Enter your prompt text here
@@ -69,27 +75,27 @@ except:
 
 # ---creating variation below---
 
-"""
-response = client.Image.create_variation(
+
+response = client.images.create_variation(
     image=open(image_path, "rb"),
     n=1,
     size="1024x1024"
 )
-"""
+
 # response = openai.Image.create_variation(
 #   image=open(image_path, "rb"),
 #   n=1,
 #   size="1024x1024"
 # )
 
-# image_path = os.path.join(image_dir, 'generated_variation.png')
+image_path = os.path.join(image_dir, 'generated_variation.png')
 
-# image_url = response['data'][0]['url']
+image_url = response.data[0].url
 
-# generated_image = requests.get(image_url).content  # download the image
-# with open(image_path, "wb") as image_file:
-#     image_file.write(generated_image)
+generated_image = requests.get(image_url).content  # download the image
+with open(image_path, "wb") as image_file:
+    image_file.write(generated_image)
 
 # # Display the image in the default image viewer
-# image = Image.open(image_path)
-# image.show()
+image = Image.open(image_path)
+image.show()
